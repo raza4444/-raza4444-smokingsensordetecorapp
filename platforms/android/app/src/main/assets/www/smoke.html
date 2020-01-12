@@ -133,11 +133,18 @@ Awesome! We'll get back to you!
  
        <div class="decoration"></div>
 <div class="container">
-<div class="smoke-listing"> 
+    <div class="latest-smoke-listing"> 
    
+    </div>
+  <div>
+    <button onclick="ViewReport()" class="view-report button button-large button-blue button-fullscreen">view Report</button>
+    <button onClick="backButton()" style="display: none;" class="button-back button button-large button-green button-fullscreen">Back</button>
 </div>
+    <div style="display: none;" class="smoke-listing"> </div>
 
-
+    <div style="margin-bottom: 100px;">
+        <button onClick="backButton()" style="display: none;" class="button-back button button-large button-green button-fullscreen">Back</button>
+    </div>
 
 <div class="clear"></div>
 </div>
@@ -154,6 +161,11 @@ Awesome! We'll get back to you!
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
+    getSmokingRecord();
+    setInterval(function(){ getSmokingRecord(); }, 40000);
+   
+})
+function getSmokingRecord() {
     var settings = {
   "async": true,
   "crossDomain": true,
@@ -168,24 +180,48 @@ $(document).ready(function(){
 $.ajax(settings).done(function (response) {
 var data = JSON.parse(response);
 var $html = "";
+var latest = "";
 $.each( data, function( key, value ) {
-    $html +=  "<div class='news-column' style='display: flex; height: 105px; margin-bottom: 21px;'>";
+    $html +=  "<div class='news-column' style='display: flex;height: 129px; margin-bottom: 21px;position: relative;padding: 11px;box-shadow: 4px 5px red;border: 2px solid red;'>";
+    if(key == 0) {
+        $html += "<div style='position: absolute;z-index: 99999;background-color: red; color: #fff;font-size: 8px;padding: 2px;border-radius: 74px;top: 0px;left: 0px;'>New smoke detect</div>"
+    }
     $html +=  "<a href='#'><img src='img/pictures/1.jpg' alt='img'></a>";
-    $html +=  "<div style='margin-left: 13px;'>";
+    $html +=  "<div style='margin-left: 13px;line-height: 21px;'>";
     $html +=  "<span><b>smoking item:</b>"+value.name+"</span>";
     $html +=  "<br/>";
     $html +=  "<span><b>Smoking Value:</b>"+value.value+"</span>";
     $html +=  "<br/>";
     $html +=  "<span><b>Date:</b>"+value.date+"</span>";
+    $html +=  "<br/>";
     $html +=  "<span><b>Time :</b>"+value.time+"</span>";
     $html +=  "</div>";
-    $html +=  "<strong>location in <a href='#'>CLick Here</a></strong>";
+    $html +=  "<strong>location in <a href='#'>Click Here</a></strong>";
     $html +=  "</div>";
-    console.log(value.name);
+    if(key == 0) {
+        latest += $html;
+    }
+
 });
+$('.latest-smoke-listing').html(latest);
 $('.smoke-listing').html($html);
+
 });
-})
+}
+
+function ViewReport() {
+$('.smoke-listing').css("display" , "block");    
+$('.latest-smoke-listing').css("display" , "none");
+$('.view-report').css("display" , "none");
+$(".button-back").css("display" , "block");
+}
+
+function backButton() {
+$('.smoke-listing').css("display" , "none");    
+$('.latest-smoke-listing').css("display" , "block");
+$('.view-report').css("display" , "block");
+$(".button-back").css("display" , "none");
+}
 </script>
 </html>
 
