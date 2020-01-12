@@ -133,54 +133,11 @@ Awesome! We'll get back to you!
  
        <div class="decoration"></div>
 <div class="container">
-<div class="news-column" style="display: flex; height: 75px;
-margin-bottom: 21px;">
-<a href="#"><img src="img/pictures/1.jpg" alt="img"></a>
-<div style="margin-left: 13px;">
-    <span><b>smoking item:</b>cigrette</span>
-<br/>
-    <span><b>Smoking Value:</b>3500</span>
-
+<div class="smoke-listing"> 
+   
 </div>
 
-<strong>location in <a href="#">CLick Here</a></strong>
-</div>
-<div class="news-column" style="display: flex; height: 75px;
-margin-bottom: 21px;">
-<a href="#"><img src="img/pictures/1.jpg" alt="img"></a>
-<div style="margin-left: 13px;">
-    <span><b>smoking item:</b>cigrette</span>
-<br/>
-    <span><b>Smoking Value:</b>3500</span>
 
-</div>
-
-<strong>location in <a href="#">CLick Here</a></strong>
-</div>
-<div class="news-column" style="display: flex; height: 75px;
-margin-bottom: 21px;">
-<a href="#"><img src="img/pictures/1.jpg" alt="img"></a>
-<div style="margin-left: 13px;">
-    <span><b>smoking item:</b>cigrette</span>
-<br/>
-    <span><b>Smoking Value:</b>3500</span>
-
-</div>
-
-<strong>location in <a href="#">CLick Here</a></strong>
-</div>
-<div class="news-column" style="display: flex; height: 75px;
-margin-bottom: 21px;">
-<a href="#"><img src="img/pictures/1.jpg" alt="img"></a>
-<div style="margin-left: 13px;">
-    <span><b>smoking item:</b>cigrette</span>
-<br/>
-    <span><b>Smoking Value:</b>3500</span>
-
-</div>
-
-<strong>location in <a href="#">CLick Here</a></strong>
-</div>
 
 <div class="clear"></div>
 </div>
@@ -196,14 +153,39 @@ margin-bottom: 21px;">
 
 </body>
 <script type="text/javascript">
-	function login() {
-var user = $('#userLogin').val();
-		var password = $('#passwordLogin').val();
-		console.log(user , password);
-		if(user == 'admin' && password == "abdul") {
-			window.location.href = "smoke.html";
-		}
-	}
+$(document).ready(function(){
+    var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://storiesgroup.com/smoke.php",
+  "method": "GET",
+  "headers": {
+    "cache-control": "no-cache",
+    "postman-token": "a9936ca5-53dc-09a1-938f-af80038e12dd"
+  }
+}
+
+$.ajax(settings).done(function (response) {
+var data = JSON.parse(response);
+var $html = "";
+$.each( data, function( key, value ) {
+    $html +=  "<div class='news-column' style='display: flex; height: 105px; margin-bottom: 21px;'>";
+    $html +=  "<a href='#'><img src='img/pictures/1.jpg' alt='img'></a>";
+    $html +=  "<div style='margin-left: 13px;'>";
+    $html +=  "<span><b>smoking item:</b>"+value.name+"</span>";
+    $html +=  "<br/>";
+    $html +=  "<span><b>Smoking Value:</b>"+value.value+"</span>";
+    $html +=  "<br/>";
+    $html +=  "<span><b>Date:</b>"+value.date+"</span>";
+    $html +=  "<span><b>Time :</b>"+value.time+"</span>";
+    $html +=  "</div>";
+    $html +=  "<strong>location in <a href='#'>CLick Here</a></strong>";
+    $html +=  "</div>";
+    console.log(value.name);
+});
+$('.smoke-listing').html($html);
+});
+})
 </script>
 </html>
 
