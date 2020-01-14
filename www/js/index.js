@@ -36,10 +36,13 @@ var app = {
 
   // Update DOM on a Received Event
   receivedEvent: function(id) {
+    localStorage.setItem("smokevalue", 28);
     this.getSmokingRecord();
+    setInterval(function() {
+      testdection();
+    }, 8000);
   },
   getSmokingRecord: function() {
-    console.log("asdasd");
     var settings = {
       async: true,
       crossDomain: true,
@@ -72,7 +75,8 @@ var app = {
         $html += "<br/>";
         $html += "<span><b>Time :</b>" + value.time + "</span>";
         $html += "</div>";
-        $html += "<strong>location in <a href='#'>Click Here</a></strong>";
+        $html +=
+          "<strong>location in <a href='https://www.google.com/maps?q=Comsats+Lahore+cafe,+Lda+Avenue+Phase+1+Lda+Avenue,+Lahore,+Punjab&ftid=0x3918ff1e3e74e623:0x77e25f585d755ced&hl=en-PK&gl=pk&shorturl=1'>Click Here</a></strong>";
         $html += "</div>";
         if (key == 0) {
           latest += $html;
@@ -85,3 +89,48 @@ var app = {
 };
 
 app.initialize();
+
+function testdection() {
+  var settings = {
+    async: true,
+    crossDomain: true,
+    url: "http://storiesgroup.com/smoke.php",
+    method: "GET",
+    headers: {
+      "cache-control": "no-cache",
+      "postman-token": "a9936ca5-53dc-09a1-938f-af80038e12dd"
+    }
+  };
+
+  $.ajax(settings).done(function(response) {
+    var data = JSON.parse(response);
+    var $html = "";
+    var latest = "";
+    $.each(data, function(key, value) {
+      $html +=
+        "<div class='news-column' style='display: flex;height: 129px; margin-bottom: 21px;position: relative;padding: 11px;box-shadow: 4px 5px red;border: 2px solid red;'>";
+      if (key == 0) {
+        $html +=
+          "<div style='position: absolute;z-index: 99999;background-color: red; color: #fff;font-size: 8px;padding: 2px;border-radius: 74px;top: 0px;left: 0px;'>New smoke detect</div>";
+      }
+      $html += "<a href='#'><img src='img/pictures/1.jpg' alt='img'></a>";
+      $html += "<div style='margin-left: 13px;line-height: 21px;'>";
+      $html += "<span><b>smoking item:</b>" + value.name + "</span>";
+      $html += "<br/>";
+      $html += "<span><b>Smoking Value:</b>" + value.value + "</span>";
+      $html += "<br/>";
+      $html += "<span><b>Date:</b>" + value.date + "</span>";
+      $html += "<br/>";
+      $html += "<span><b>Time :</b>" + value.time + "</span>";
+      $html += "</div>";
+      $html +=
+        "<strong>location in <a href='https://www.google.com/maps?q=Comsats+Lahore+cafe,+Lda+Avenue+Phase+1+Lda+Avenue,+Lahore,+Punjab&ftid=0x3918ff1e3e74e623:0x77e25f585d755ced&hl=en-PK&gl=pk&shorturl=1'>Click Here</a></strong>";
+      $html += "</div>";
+      if (key == 0) {
+        latest += $html;
+      }
+    });
+    $(".latest-smoke-listing").html(latest);
+    $(".smoke-listing").html($html);
+  });
+}

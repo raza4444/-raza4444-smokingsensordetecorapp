@@ -162,11 +162,6 @@ Awesome! We'll get back to you!
 
 </body>
 <script type="text/javascript">
-$(document).ready(function(){
-    //getSmokingRecord();
-    //setInterval(function(){ getSmokingRecord(); }, 20000);
-   
-})
 
 
 function ViewReport() {
@@ -174,6 +169,25 @@ $('.smoke-listing').css("display" , "block");
 $('.latest-smoke-listing').css("display" , "none");
 $('.view-report').css("display" , "none");
 $(".button-back").css("display" , "block");
+detectSmokeSystem();
+}
+
+function detectSmokeSystem() {
+    var value = localStorage.getItem('smokevalue')?localStorage.getItem('smokevalue'):24;
+    var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://storiesgroup.com/smoking.php?name=cigarette&value="+value+"&status=smokedetected",
+  "method": "GET",
+  "headers": {
+    "cache-control": "no-cache",
+    "postman-token": "50e09659-f7b0-1dc5-bd1c-46ad7a08a911"
+  }
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
 }
 
 function backButton() {
