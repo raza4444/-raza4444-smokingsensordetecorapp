@@ -9,11 +9,32 @@
   "installed_plugins": {
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.smoking.detector"
+    },
+    "cordova-plugin-extension": {
+      "PACKAGE_NAME": "com.smoking.detector"
+    },
+    "cordova-facebook-audnet-sdk": {
+      "PACKAGE_NAME": "com.smoking.detector"
+    },
+    "cordova-plugin-facebookads": {
+      "PACKAGE_NAME": "com.smoking.detector"
     }
   },
   "dependent_plugins": {},
-  "modules": [],
+  "modules": [
+    {
+      "file": "plugins/cordova-plugin-facebookads/www/FacebookAds.js",
+      "id": "cordova-plugin-facebookads.FacebookAds",
+      "pluginId": "cordova-plugin-facebookads",
+      "clobbers": [
+        "window.FacebookAds"
+      ]
+    }
+  ],
   "plugin_metadata": {
-    "cordova-plugin-whitelist": "1.3.4"
+    "cordova-plugin-whitelist": "1.3.4",
+    "cordova-plugin-extension": "1.5.4",
+    "cordova-facebook-audnet-sdk": "4.26.2",
+    "cordova-plugin-facebookads": "4.23.2"
   }
 }

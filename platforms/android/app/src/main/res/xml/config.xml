@@ -4,7 +4,10 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <name>smokingdetector</name>
+    <feature name="FacebookAds">
+        <param name="android-package" value="com.rjfun.cordova.facebookads.FacebookAdPlugin" />
+    </feature>
+    <name>cigarettesmokingdetector</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
